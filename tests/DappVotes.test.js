@@ -75,5 +75,26 @@ describe('Contracts', () => {
 
       })
     })
+
+    describe('Failure',()=> {
+      it('should confirm poll creation failures', async()=> {
+             await expectRevert(contract.createPoll('',title,dsecription,starts,ends),
+             'Image URL cannot be empty'
+             )
+             await expectRevert(contract.createPoll('',title,description,0,ends),
+             'Start date must be greater than 0'
+             )
+      })
+
+      it('should confirm poll update failures',async() => {
+             await expectRevert(contact.updatePoll(100, image,'New Title',descripton,starts,ends),
+             'Poll not found'
+             )
+      })
+
+      it('should confirm poll deletion failures', async() => {
+             await expectRevert(contract.deletePoll(100),'Poll not found')
+      })
+    })
 })
 })
