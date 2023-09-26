@@ -1,9 +1,15 @@
-import { PollParams } from '@/utils/types'
+import { globalActions } from '@/store/globalSlices'
+import { PollParams, RootState } from '@/utils/types'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 
 const CreatePoll: React.FC = () => {
-  const createModal = 'scale-0'
+  //const createModal = 'scale-0'
+  const { createModal } = useSelector((states: RootState) => states.globalStates)
+
+  const dispatch = useDispatch()
+  const { setCreateModal } = globalActions
 
   const [poll, setPoll] = useState<PollParams>({
     image: '',
@@ -34,6 +40,7 @@ const CreatePoll: React.FC = () => {
   }
 
   const closeModal = () => {
+    dispatch(setCreateModal('scale-0'))
     setPoll({
       image: '',
       title: '',
