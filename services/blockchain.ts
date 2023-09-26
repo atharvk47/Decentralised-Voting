@@ -3,6 +3,7 @@ import address from "@/artifacts/contractAddress.json"
 import abi from "@/artifacts/contracts/Voting.sol/Voting.json"
 import { globalActions } from "@/store/globalSlices";
 import { store } from "@/store";
+import { PollParams } from "@/utils/types";
 
 
 const {setWallet} = globalActions
@@ -68,4 +69,24 @@ const getEthereumContract = async() => {
     return contract
 }  
 
-export {connectWallet, checkWallet}
+const createPoll = async(data: PollParams) => {
+    if(!ethereum) {
+        reportError('Please install Metamask')
+        return Promise.reject(new Error('Metamask is not installed.'))
+    }
+
+    try{
+        const contract = await getEthereumContract()
+        const {image, title, description, startsAt, endsAt} = data
+        const tx = await contract.createPoll(image, title, description, startsAt, endsAt)
+
+        await tx.wait()
+        return Promise.resolve(tx)
+
+    }catch(error){
+        reportError(error)
+        return Promise.reject(error)
+    }
+}
+
+export {connectWallet, checkWallet, createPoll}
