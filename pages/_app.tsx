@@ -4,8 +4,14 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Provider } from 'react-redux'
 import { store } from '@/store'
+import { checkWallet } from '@/services/blockchain'
+import { useEffect } from "react"
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    checkWallet()
+  }, []);
+  
   return (
     <Provider store = {store}>
       <Component {...pageProps} />
