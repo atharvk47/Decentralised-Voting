@@ -3,6 +3,8 @@ import { PollParams, RootState } from '@/utils/types'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { createPoll } from '@/services/blockchain'
 
 const CreatePoll: React.FC = () => {
   //const createModal = 'scale-0'
@@ -27,8 +29,24 @@ const CreatePoll: React.FC = () => {
     poll.startsAt = new Date(poll.startsAt).getTime()
     poll.endsAt = new Date(poll.endsAt).getTime()
 
-    console.log(poll)
-    closeModal()
+    //console.log(poll)
+    //closeModal()
+
+    await toast.promise(
+      new Promise<void> ((resolve, reject) => {
+      createPoll(poll)
+      .then((tx) => {
+        closeModal()
+        console.log(tx);
+        resolve(tx)
+      })
+      .catch((error) => reject(error))
+      }),{
+        pending: 'Approve transaction...',
+        success: 'Poll created successfully',
+        error: 'Encountered error',
+      }
+    )
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
