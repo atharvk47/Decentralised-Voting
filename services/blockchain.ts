@@ -3,7 +3,7 @@ import address from "@/artifacts/contractAddress.json"
 import abi from "@/artifacts/contracts/Voting.sol/Voting.json"
 import { globalActions } from "@/store/globalSlices";
 import { store } from "@/store";
-import { PollParams } from "@/utils/types";
+import { PollParams, PollStruct } from "@/utils/types";
 
 
 const {setWallet} = globalActions
@@ -89,4 +89,31 @@ const createPoll = async(data: PollParams) => {
     }
 }
 
-export {connectWallet, checkWallet, createPoll}
+const getPolls = async(): Promise<PollStruct[]> => {
+    const contract = await getEthereumContract()
+    const polls = await contract.getPolls()
+    return structurePolls(polls)
+}
+
+const structurePolls = (polls: PollStruct[]): PollStruct[] => 
+polls.map((poll) => (
+    {
+        id: Number(poll.id),
+        image: poll.image,
+        title: poll.title,
+        description: poll.description,
+        votes: Number(poll.votes),
+        contestants: Number(poll.contestants),
+        deleted: poll.deleted,
+        director: poll.director.toLowerCase(),
+        startsAt: Number(poll.startsAt),
+        endsAt: Number(poll.endsAt),
+        timestamp: Number(poll.timestamp),
+        voters: poll.voters.map((voter: string) => voter.toLowerCase()),
+        avatars: poll.avatars
+    }
+)
+)
+.sort((a,b) => b.timestamp- a.timestamp)
+
+export {connectWallet, checkWallet, createPoll, getPolls}
