@@ -20,7 +20,7 @@ if(typeof window !== 'undefined'){
 const connectWallet = async () => {
     try{
         if(!ethereum) return reportError('Please install MetaMask')
-        const accounts = await ethereum.request?.({ method: 'eth_requestAccounts'})
+        const accounts = await ethereum?.request?.({ method: 'eth_requestAccounts'})
         store.dispatch(setWallet(accounts?.[0]))
     }catch(error){
         reportError(error)
@@ -31,7 +31,7 @@ const connectWallet = async () => {
 const checkWallet = async() => {
     try{
         if(!ethereum) return reportError('Please install Metamask')
-        const accounts = await ethereum.request?.({method: 'eth_accounts'})
+        const accounts = await ethereum?.request?.({method: 'eth_accounts'})
 
         ethereum.on('chainChanged', async ()=> {
             window.location.reload()
@@ -58,7 +58,7 @@ const reportError = (error: any) => {
 
 const getEthereumContract = async() => {
     
-    const accounts = await ethereum.request?.({method: 'eth_accounts'})
+    const accounts = await ethereum?.request?.({method: 'eth_accounts'})
     const provider = accounts?.[0] ? 
     new ethers.providers.Web3Provider(ethereum) : new ethers.providers.JsonRpcProvider(process.env.NEXT_APP_RPC_URL)
     

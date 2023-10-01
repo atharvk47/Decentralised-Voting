@@ -17,8 +17,8 @@ const Footer = () => {
 
       <hr className="w-full sm:w-[450px] border-t border-gray-400 mt-3" />
 
-      <p className="text-sm font-[500px] mt-5">©️{new Date().getFullYear()}</p>
-      <p className="text-sm font-[500px]">With Love ❤️ by Daltonic</p>
+      <p className="text-sm font-[500px] mt-5">©️{new Date().getFullYear()} DappVotes Corp Ltd.</p>
+      <p className="text-sm font-[500px]"></p>
     </footer>
   )
 }

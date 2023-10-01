@@ -9,6 +9,7 @@ import { generateFakePolls } from '@/services/data'
 import { useDispatch, useSelector } from 'react-redux'
 import { globalActions } from '@/store/globalSlices'
 import { useEffect } from 'react'
+import { getPolls } from '@/services/blockchain'
 
 export default function Home({ pollsData }: { pollsData: PollStruct[] }) {
   const dispatch = useDispatch()
