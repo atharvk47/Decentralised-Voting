@@ -1,8 +1,6 @@
 # Decentralised-Voting
 
-Decentralized crowdfunding offers individuals the opportunity to participate in fundraising campaigns while bypassing traditional intermediaries.
-By leveraging blockchain technology, it ensures transparency, security, and inclusivity.
-Users can directly support projects they believe in, fostering a democratic and borderless approach to fundraising, ultimately empowering creators and backers alike.
+Decentralized voting employs blockchain technology to ensure secure, tamper-resistant, and transparent elections. By eliminating centralized authorities, it enhances trust in the process, promotes inclusivity, and allows individuals to participate directly. This technology fosters a more democratic and accountable decision-making system, strengthening the foundations of fair and representative governance.
 
 ## Status:
 
